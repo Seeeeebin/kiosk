@@ -1,23 +1,17 @@
 package com.groufin.finpos.kiosk.product.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-/*@Getter
-@ToString
-@EqualsAndHashCode(of = "storeCode")*/
 @Entity
+@Getter
 @Table(name = "fin_menu_code")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@ToString(exclude = "lMember")
 public class Menu {
 
 
@@ -28,7 +22,6 @@ public class Menu {
     private String categoryCode;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="menu_code")
     private String menuCode;
 
@@ -43,12 +36,28 @@ public class Menu {
     @Column(name="tax_flag")
     private String taxFlag;
 
+
+    @Column(name="pos_display_yn")
+    private String posDisplayYn;
+
+    @Column(name="app_display_yn")
+    private String appDisplayYn;
+
+    @Column(name="kiosk_display_yn")
+    private String kioskDisplayYn;
+
+
     @Column(name="display_index")
     private String displayIndex;
 
     @Column(name="cost_price")
     private String costPrice;
 
+    @Column(name="online_order_yn")
+    private String onlineOrderYn;
+
+    @Column(name="online_soldout_date")
+    private String onlineSoldoutDate;
 
     @Column(name="f1_color")
     private String f1Color;
@@ -74,12 +83,12 @@ public class Menu {
     @Column(name="inventory_yn")
     private String inventoryYn;
 
-    @Column(name = "file_seq")
-    private Integer fileSeq;
+    @Column(name="inventory_count")
+    private Integer inventoryCount;
 
-    /*@OneToOne(mappedBy = "menu", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private File file;*/
+
+    @Column(name="sheet_name")
+    private String sheetName;
 
 
     @CreationTimestamp
@@ -90,26 +99,18 @@ public class Menu {
     @Column(name="mod_date")
     private LocalDateTime modDate;
 
-    public Menu(String storeCode, String categoryCode, String menuCode, String menuName, String barcode, String menuDescription, String taxFlag, String displayIndex, String costPrice, String f1Color, String f2Color, String b1Color, String c1Color, String stampYn, String pointYn, String orderStateYn, String inventoryYn, Integer fileSeq, LocalDateTime regDate, LocalDateTime modDate) {
+    @ManyToOne
+    @JoinColumn(name = "file_seq")
+    private File file;
+
+    public Menu(String storeCode) {
         this.storeCode = storeCode;
-        this.categoryCode = categoryCode;
-        this.menuCode = menuCode;
-        this.menuName = menuName;
-        this.barcode = barcode;
-        this.menuDescription = menuDescription;
-        this.taxFlag = taxFlag;
-        this.displayIndex = displayIndex;
-        this.costPrice = costPrice;
-        this.f1Color = f1Color;
-        this.f2Color = f2Color;
-        this.b1Color = b1Color;
-        this.c1Color = c1Color;
-        this.stampYn = stampYn;
-        this.pointYn = pointYn;
-        this.orderStateYn = orderStateYn;
-        this.inventoryYn = inventoryYn;
-        this.fileSeq = fileSeq;
-        this.regDate = regDate;
-        this.modDate = modDate;
     }
+
+    public void changeFile(File file){
+        this.file = file; // 자신 변경
+        file.getMenus().add(this); // 연관관계가 있는 File엔티티도 변경
+    }
+
+
 }

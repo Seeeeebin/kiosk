@@ -1,28 +1,25 @@
 package com.groufin.finpos.kiosk.product.domain;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-/*@Getter
-@ToString
-@EqualsAndHashCode(of = "storeCode")*/
 @Entity
+@Getter
 @Table(name = "fin_file")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class File {
 
-    @Id
+    @Id @GeneratedValue
     @Column(name = "seq")
-    private Integer seq;
+    private Long seq;
 
-    /*@OneToOne
-    @MapsId
-    @JoinColumn(name = "seq")
-    private Menu menu;*/
 
     @Column(name="file_name")
     private String fileName;
@@ -48,14 +45,11 @@ public class File {
     @Column(name="reg_date")
     private LocalDateTime regDate;
 
-    public File(Integer seq, String fileName, String fileOriginalName, String filePath, String fileDescription, String useYn, String brandTypeCode, LocalDateTime regDate) {
+
+    @OneToMany(mappedBy = "file")
+    private List<Menu> menus = new ArrayList<>();
+
+    public File(Long seq) {
         this.seq = seq;
-        this.fileName = fileName;
-        this.fileOriginalName = fileOriginalName;
-        this.filePath = filePath;
-        this.fileDescription = fileDescription;
-        this.useYn = useYn;
-        this.brandTypeCode = brandTypeCode;
-        this.regDate = regDate;
     }
 }

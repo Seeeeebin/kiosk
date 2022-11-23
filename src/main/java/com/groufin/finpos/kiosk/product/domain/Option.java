@@ -1,29 +1,32 @@
 package com.groufin.finpos.kiosk.product.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-/*@Getter
-@ToString
-@EqualsAndHashCode(of = "storeCode")*/
 @Entity
 @Getter
-@Table(name = "fin_menu_category")
+@Table(name = "fin_option")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Category {
-    @Id
-    @Column(name="category_code")
-    private String categoryCode;
+public class Option {
 
     @Column(name="store_code")
     private String storeCode;
 
-    @Column(name="category_name")
-    private String categoryName;
+    @Id @GeneratedValue
+    @Column(name="option_code")
+    private String optionCode;
+
+    @Column(name="option_name")
+    private String optionName;
+
+    @Column(name="option_price")
+    private String optionPrice;
 
     @Column(name="use_yn")
     private String useYn;
@@ -52,7 +55,8 @@ public class Category {
     @Column(name="c1_color")
     private String c1Color;
 
-    private Integer sort;
+    @Column(name="kaffa_seq")
+    private Integer kaffaSeq;
 
     @CreationTimestamp
     @Column(name="reg_date")
@@ -62,8 +66,27 @@ public class Category {
     @Column(name="mod_date")
     private LocalDateTime modDate;
 
-    @Builder
-    public Category(String storeCode) {
-        this.storeCode   = storeCode;
-    }
+
+    @Column(name="sheet_name")
+    private String sheetName;
+
+    @Column(name="duplicate_yn")
+    private String duplicateYn;
+
+    @Column(name="inventory_yn")
+    private String inventoryYn;
+
+    @Column(name="inventory_count")
+    private Integer inventoryCount;
+
+
+    @Column(name="option_group_seq")
+    private Integer optionGroupSeq;
+
+    @ManyToOne
+    @JoinColumn(name="option_code")
+    private OptionGroupList optionGroupList;
+
+
+
 }
