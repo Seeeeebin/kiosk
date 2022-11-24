@@ -26,7 +26,7 @@ public class CategoryService {
 
 
         return CategoryListResponse.builder()
-                .params(resultList)
+                .data(resultList)
                 .build();
 
 

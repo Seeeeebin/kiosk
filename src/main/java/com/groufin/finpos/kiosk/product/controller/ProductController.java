@@ -38,7 +38,7 @@ public class ProductController {
 
         CategoryListResponse result= categoryService.getCategoriesByStoreCode(request.getStoreCode());
 
-        return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.SUCCESS, result), HttpStatus.OK);
+        return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.SUCCESS, result.getData()), HttpStatus.OK);
 
     }
 
@@ -48,8 +48,7 @@ public class ProductController {
 
         MenuListResponse result= menuService.getMenusByCategoryCode(request.getCategoryCode());
 
-        //return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.getCategoriesByStoreCode(request.getStoreCode()));
-        return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.SUCCESS, result), HttpStatus.OK);
+        return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.SUCCESS, result.getData()), HttpStatus.OK);
 
     }
 
@@ -59,8 +58,18 @@ public class ProductController {
 
         OptionListResponse result= optionService.getOptionsByMenuCode(request.getMenuCode());
 
-        //return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.getCategoriesByStoreCode(request.getStoreCode()));
-        return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.SUCCESS, result), HttpStatus.OK);
+        return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.SUCCESS, result.getData()), HttpStatus.OK);
+        //return result;
+    }
+
+
+    @PostMapping("/optionGroupList")
+    @Operation(summary = "옵션 그룹 리스트 조회", description = "카테고리별 옵션 그룹 리스트를 조회한다. ", tags = {OPTION_TAG})
+    private ResponseEntity<OptionGroupListResponse>  optionGroupList(@RequestBody OptionListRequest request) {
+
+        OptionGroupListResponse result= optionService.getOptionGroupsByStoreCode(request.getStoreCode());
+
+        return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.SUCCESS, result.getData()), HttpStatus.OK);
 
     }
 

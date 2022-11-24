@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class MenuListResponse {
 
-    private List<MenuDetails> params;
+    private List<MenuDetails> data;
 
 }

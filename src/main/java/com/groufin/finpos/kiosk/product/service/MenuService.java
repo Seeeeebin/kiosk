@@ -27,7 +27,7 @@ public class MenuService {
         List<MenuDetails> resultList = menuList.stream().map(menu -> modelMapper.map(menu, MenuDetails.class)).collect(Collectors.toList());
 
         return MenuListResponse.builder()
-                .params(resultList)
+                .data(resultList)
                 .build();
 
     }

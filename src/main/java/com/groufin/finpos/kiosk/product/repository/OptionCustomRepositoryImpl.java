@@ -8,7 +8,7 @@ import java.util.List;
 public class OptionCustomRepositoryImpl extends QuerydslRepositorySupport implements OptionCustomRepository {
 
     private static final QOption option = QOption.option;
-    private static final QOptionGroupList optionGroupList = QOptionGroupList.optionGroupList;
+    private static final QOptionGroup optionGroup = QOptionGroup.optionGroup;
     private static final QMenuOptionGroup menuOptionGroup = QMenuOptionGroup.menuOptionGroup;
 
     public OptionCustomRepositoryImpl() { super(Menu.class); }
@@ -16,17 +16,21 @@ public class OptionCustomRepositoryImpl extends QuerydslRepositorySupport implem
 
     @Override
     public List<Option> findDetailsByMenuCode(String menuCode) {
-        /*return from(menuOptionGroup)
-                .leftJoin(menuOptionGroup.optionGroups, optionGroupList).fetchJoin()
-                .leftJoin(optionGroupList.options, option).fetchJoin()
-                .where(menuOptionGroup.menuCode.eq(menuCode))
-                .fetch();*/
-
 
         return from(option)
-                .leftJoin(option.optionGroupList, optionGroupList).fetchJoin()
-                .leftJoin(optionGroupList.menuOptionGroup, menuOptionGroup).fetchJoin()
+                .leftJoin(option.optionGroup, optionGroup).fetchJoin()
+                .leftJoin(optionGroup.menuOptionGroup, menuOptionGroup).fetchJoin()
                 .where(menuOptionGroup.menuCode.eq(menuCode))
+                .fetch();
+
+    }
+
+    @Override
+    public List<Option> findDetailsByStoreCode(String storeCode) {
+
+        return from(option)
+                .leftJoin(option.optionGroup, optionGroup).fetchJoin()
+                .where(option.storeCode.eq(storeCode))
                 .fetch();
 
     }

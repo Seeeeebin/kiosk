@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @Getter
 @Table(name = "fin_menu_option_group")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MenuOptionGroup {
+public class MenuOptionGroup  implements Serializable {
 
     @Id
     @GeneratedValue
@@ -22,9 +23,7 @@ public class MenuOptionGroup {
     private Long optionGroupSeq;
 
     @OneToMany(mappedBy = "menuOptionGroup")
-    private List<OptionGroupList> optionGroups = new ArrayList<>();
-
-
+    private List<OptionGroup> optionGroups = new ArrayList<>();
 
 
     @Column(name="menu_code")

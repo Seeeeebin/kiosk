@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class OptionListResponse {
 
-    private List<OptionDetails> params;
+    private List<OptionDetails> data;
 
 }

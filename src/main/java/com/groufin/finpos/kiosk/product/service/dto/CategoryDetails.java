@@ -34,13 +34,13 @@ public class CategoryDetails {
     private String displayIndex;
 
     @Schema(description = "POS 노출 여부")
-    private String pos_display_yn;
+    private String posDisplayYn;
 
     @Schema(description = "APP 노출 여부")
-    private String app_display_yn;
+    private String appDisplayYn;
 
     @Schema(description = "KIOSK 노출 여부")
-    private String kiosk_display_yn;
+    private String kioskDisplayYn;
 
     @Schema(description = "폰트 색상 1")
     private String f1Color;

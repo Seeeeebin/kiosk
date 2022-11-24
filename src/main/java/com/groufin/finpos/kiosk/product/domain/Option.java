@@ -15,12 +15,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Option {
 
+    @Id
+    @GeneratedValue
+    private Long seq;
+
     @Column(name="store_code")
     private String storeCode;
-
-    @Id @GeneratedValue
-    @Column(name="option_code")
-    private String optionCode;
 
     @Column(name="option_name")
     private String optionName;
@@ -83,9 +83,9 @@ public class Option {
     @Column(name="option_group_seq")
     private Integer optionGroupSeq;
 
-    @ManyToOne
-    @JoinColumn(name="option_code")
-    private OptionGroupList optionGroupList;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName="option_code", name="optionCode")
+    private OptionGroup optionGroup;
 
 
 

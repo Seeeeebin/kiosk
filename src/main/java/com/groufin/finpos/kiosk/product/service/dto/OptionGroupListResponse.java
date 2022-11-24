@@ -11,8 +11,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryListResponse {
+public class OptionGroupListResponse {
 
-    private List<CategoryDetails> data;
+    private List<OptionGroupDetails> data;
 
 }

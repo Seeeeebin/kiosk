@@ -7,6 +7,8 @@ import lombok.Data;
 @Schema(description = "옵션 리스트 요청")
 public class OptionListRequest {
 
+    @Schema(description = "스토어 코드")
+    private String storeCode;
     @Schema(description = "메뉴 코드")
     private String menuCode;
 

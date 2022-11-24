@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +15,14 @@ import java.util.List;
 @Getter
 @Table(name = "fin_option_group_list")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class OptionGroupList {
+public class OptionGroup implements Serializable {
 
     @Id
     @GeneratedValue
     private Long seq;
 
-    @Column(name="option_group_seq")
-    private Long optionGroupSeq;
+   /* @Column(name="option_group_seq")
+    private Long optionGroupSeq;*/
 
     @Column(name="option_code")
     private String optionCode;
@@ -31,11 +32,11 @@ public class OptionGroupList {
     private LocalDateTime regDate;
 
 
-    @ManyToOne
-    @JoinColumn(name="option_group_seq", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName="option_group_seq", name="optionGroupSeq")
     private MenuOptionGroup menuOptionGroup;
 
-    @OneToMany(mappedBy = "optionGroupList")
+    @OneToMany(mappedBy = "optionGroup")
     private List<Option> options = new ArrayList<>();
 
 
